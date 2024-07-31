@@ -12,12 +12,34 @@ from flask_cors import CORS, cross_origin
 api_key = os.getenv("GEMINI_API_KEY")
 index_storage_dir = "index_storage"
 data_dir = "data"
+safety_settings = [
+    {
+        "category": "HARM_CATEGORY_DANGEROUS",
+        "threshold": "BLOCK_NONE",
+    },
+    {
+        "category": "HARM_CATEGORY_HARASSMENT",
+        "threshold": "BLOCK_NONE",
+    },
+    {
+        "category": "HARM_CATEGORY_HATE_SPEECH",
+        "threshold": "BLOCK_NONE",
+    },
+    {
+        "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+        "threshold": "BLOCK_NONE",
+    },
+    {
+        "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+        "threshold": "BLOCK_NONE",
+    },
+]
 
 Settings.embed_model = GeminiEmbedding(
     model_name="models/embedding-001", api_key=api_key
 )
 
-Settings.llm = Gemini(api_key=api_key, temperature=0)
+Settings.llm = Gemini(api_key=api_key,safety_settings=safety_settings, temperature=0)
 
 
 if not os.path.exists(index_storage_dir):
