@@ -3,3 +3,7 @@ __pycache__/
 app1.py
 app2.py
 kbdata/
+.venv/
+.venv
+.env/
+.env
